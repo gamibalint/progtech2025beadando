@@ -24,4 +24,7 @@ public class Tabla {
             System.out.println();
         }
     }
+    public void lepes(int sor, int oszlop, char karakter) {
+        mezok[sor][oszlop] = karakter;
+    }
 }
