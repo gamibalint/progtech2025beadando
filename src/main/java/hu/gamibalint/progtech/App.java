@@ -5,5 +5,7 @@ public class App
     public static void main( String[] args )
     {
         System.out.println("Amoba Jatek indul");
-        Tabla tabla = new Tabla(10, 10);   }
+        Tabla tabla = new Tabla(10, 10);
+        tabla.kiir();
+    }
 }

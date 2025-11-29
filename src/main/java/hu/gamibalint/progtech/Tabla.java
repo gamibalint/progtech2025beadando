@@ -16,4 +16,12 @@ public class Tabla {
             }
         }
     }
+    public void kiir() {
+        for (int sor = 0; sor < sorok; sor++) {
+            for (int oszlop = 0; oszlop < oszlopok; oszlop++) {
+                System.out.print(mezok[sor][oszlop] + " ");
+            }
+            System.out.println();
+        }
+    }
 }
