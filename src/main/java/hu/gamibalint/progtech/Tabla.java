@@ -27,4 +27,7 @@ public class Tabla {
     public void lepes(int sor, int oszlop, char karakter) {
         mezok[sor][oszlop] = karakter;
     }
+    public boolean uresmezo(int sor, int oszlop) {
+        return mezok[sor][oszlop] == '.';
+    }
 }
