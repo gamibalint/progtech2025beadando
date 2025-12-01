@@ -16,6 +16,7 @@ public class Tabla {
             }
         }
     }
+
     public void kiir() {
         for (int sor = 0; sor < sorok; sor++) {
             for (int oszlop = 0; oszlop < oszlopok; oszlop++) {
@@ -24,12 +25,15 @@ public class Tabla {
             System.out.println();
         }
     }
+
     public void lepes(int sor, int oszlop, char karakter) {
         mezok[sor][oszlop] = karakter;
     }
+
     public boolean uresmezo(int sor, int oszlop) {
         return mezok[sor][oszlop] == '.';
     }
+
     // Helyes lepes ellenorzes
     public boolean helyeslepes(int sor, int oszlop) {
         if (sor < 0 || sor >= sorok || oszlop < 0 || oszlop >= oszlopok) {
@@ -52,6 +56,37 @@ public class Tabla {
                 if (mezok[ns][no] != '.') {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private boolean gyoztes(int sor, int oszlop, int ds, int doSz, char jel) {
+        int db = 0;
+        int s = sor;
+        int o = oszlop;
+        while (s >= 0 && s < sorok && o >= 0 && o < oszlopok) {
+            if (mezok[s][o] == jel) {
+                db++;
+                if (db == 5) {
+                    return true;
+                }
+            } else {
+                db = 0;
+            }
+            s += ds;
+            o += doSz;
+        }
+        return false;
+    }
+
+    public boolean gyoztes(char jel) {
+        for (int sor = 0; sor < sorok; sor++) {
+            for (int oszlop = 0; oszlop < oszlopok; oszlop++) {
+                if (gyoztes(sor, oszlop, 0, 1, jel)) return true;//vizszint
+                if (gyoztes(sor, oszlop, 1, 0, jel)) return true;//fuggo
+                if (gyoztes(sor, oszlop, 1, 1, jel)) return true;//atlo 1
+                if (gyoztes(sor, oszlop, 1, -1, jel)) return true;//atlo 2
             }
         }
         return false;

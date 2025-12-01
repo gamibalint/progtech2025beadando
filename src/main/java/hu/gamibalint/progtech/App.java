@@ -31,6 +31,11 @@ public class App {
                     }
                 }
                 tabla.lepes(sor, oszlop, 'X');
+                if (tabla.gyoztes('X')) {
+                    tabla.kiir();
+                    System.out.println("Te nyertel");
+                    break;
+                }
                 // gep
                 int gepsor;
                 int geposzlop;
@@ -40,6 +45,11 @@ public class App {
                 } while (!tabla.uresmezo(gepsor, geposzlop));
 
                 tabla.lepes(gepsor, geposzlop, 'O');
+                if (tabla.gyoztes('X')) {
+                    tabla.kiir();
+                    System.out.println("A gep nyert");
+                    break;
+                }
 
                 tabla.kiir();
                 System.out.println();
