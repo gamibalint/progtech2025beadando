@@ -30,4 +30,31 @@ public class Tabla {
     public boolean uresmezo(int sor, int oszlop) {
         return mezok[sor][oszlop] == '.';
     }
+    // Helyes lepes ellenorzes
+    public boolean helyeslepes(int sor, int oszlop) {
+        if (sor < 0 || sor >= sorok || oszlop < 0 || oszlop >= oszlopok) {
+            return false;
+        }
+        if (mezok[sor][oszlop] != '.') {
+            return false;
+        }
+        // https://stackoverflow.com/questions/2035522/get-adjacent-elements-in-a-two-dimensional-array
+        for (int ds = -1; ds <= 1; ds++) {
+            for (int dosz = -1; dosz <= 1; dosz++) {
+                if (ds == 0 && dosz == 0) {
+                    continue;
+                }
+                int ns = sor + ds;
+                int no = oszlop + dosz;
+                if (ns < 0 || ns >= sorok || no < 0 || no >= oszlopok) {
+                    continue;
+                }
+                if (mezok[ns][no] != '.') {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
+
