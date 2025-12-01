@@ -1,28 +1,37 @@
 package hu.gamibalint.progtech;
 import java.util.Scanner;
 import java.util.Random;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+//https://www.w3schools.com/java/java_files_write.asp
 public class Jatek {
-    private boolean mentettjatek() {
-        java.io.File file = new java.io.File("jatekallas.txt");
+    private boolean vanMentettJatek() {
+        File file = new File("jatekallas.txt");
         return file.exists();
     }
     public void start() {
         System.out.println("Amoba Jatek indul");
-        if (mentettjatek()) {
-            System.out.println("Van jatekallas.txt fajl");
-        } else {
-            System.out.println("Nincs jatekallas fajl");
-        }
+        String status="folyamatban";
         Tabla tabla = new Tabla(10, 10);
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        java.util.Random random = new java.util.Random();
-        int kozepSor = 5;
-        int kozepOszlop = 5;
-        tabla.lepes(kozepSor, kozepOszlop, 'X');
-        tabla.kiir();
-        System.out.println();
-
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        if (vanMentettJatek()) {
+            try (Scanner fileScanner = new Scanner(new File("jatekallas.txt"))) {
+                if (fileScanner.hasNextLine()) {
+                    String sor = fileScanner.nextLine();
+                    System.out.println("Elozo jatek allapota: " + sor);
+                }
+            } catch (IOException e) {
+                System.out.println("Hiba a jatekallas fajl olvasasakor: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Nincs korabbi jatekallas");}
+            int kozepSor = 5;
+            int kozepOszlop = 5;
+            tabla.lepes(kozepSor, kozepOszlop, 'X');
+            tabla.kiir();
+            System.out.println();
         while (true) {
             // jatekos
             int sor;
@@ -42,6 +51,7 @@ public class Jatek {
             if (tabla.gyoztes('X')) {
                 tabla.kiir();
                 System.out.println("Te nyertel");
+                status = "jatekos";
                 break;
             }
             // gep
@@ -53,14 +63,20 @@ public class Jatek {
             } while (!tabla.uresmezo(gepsor, geposzlop));
 
             tabla.lepes(gepsor, geposzlop, 'O');
-            if (tabla.gyoztes('X')) {
+            if (tabla.gyoztes('O')) {
                 tabla.kiir();
                 System.out.println("A gep nyert");
+                status = "gep";
                 break;
             }
 
             tabla.kiir();
             System.out.println();
+        }
+        try (PrintWriter ki = new PrintWriter("jatekallas.txt")) {
+            ki.println("nyertes:" + status);
+        } catch (IOException e) {
+            System.out.println("Nem sikerult a jatekallas fajlba irasa: " + e.getMessage());
         }
     }
 }

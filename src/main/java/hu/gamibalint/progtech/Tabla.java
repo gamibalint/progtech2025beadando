@@ -1,5 +1,7 @@
 package hu.gamibalint.progtech;
-
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
 public class Tabla {
 
     private final int sorok;
@@ -91,5 +93,5 @@ public class Tabla {
         }
         return false;
     }
+    //https://www.w3schools.com/java/java_files_write.asp
 }
-
