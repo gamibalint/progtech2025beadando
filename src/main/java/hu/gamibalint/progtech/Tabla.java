@@ -2,8 +2,8 @@ package hu.gamibalint.progtech;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.IOException;
 public class Tabla {
-
     private final int sorok;
     private final int oszlopok;
     private final char[][] mezok;
@@ -18,7 +18,15 @@ public class Tabla {
             }
         }
     }
-
+    public char[][] getMezok() {
+        return mezok;
+    }
+    public int getSorok() {
+        return sorok;
+    }
+    public int getOszlopok() {
+        return oszlopok;
+    }
     public void kiir() {
         for (int sor = 0; sor < sorok; sor++) {
             for (int oszlop = 0; oszlop < oszlopok; oszlop++) {
@@ -26,6 +34,7 @@ public class Tabla {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public void lepes(int sor, int oszlop, char karakter) {
@@ -93,5 +102,31 @@ public class Tabla {
         }
         return false;
     }
+
     //https://www.w3schools.com/java/java_files_write.asp
+    //mentes
+    public void mentFajlba(String fajlnev) throws IOException {
+        try (PrintWriter ki = new PrintWriter(fajlnev)) {
+            for (int sor = 0; sor < sorok; sor++) {
+                for (int oszlop = 0; oszlop < oszlopok; oszlop++) {
+                    ki.print(mezok[sor][oszlop]);
+                }
+                ki.println();
+            }
+        }
+    }
+    //betoltes
+    public void betoltFajlbol(String fajlnev) throws IOException {
+        try (Scanner be = new Scanner(new File(fajlnev))) {
+            for (int sor = 0; sor < sorok; sor++) {
+                if (be.hasNextLine()) {
+                    String sorszoveg = be.nextLine();
+                    for (int oszlop = 0; oszlop < oszlopok && oszlop < sorszoveg.length(); oszlop++) {
+                        char c = sorszoveg.charAt(oszlop);
+                        mezok[sor][oszlop] = (c == '.' || c == 'X' || c == 'O') ? c : '.';
+                    }
+                }
+            }
+        }
+    }
 }

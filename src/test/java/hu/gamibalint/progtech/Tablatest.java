@@ -19,4 +19,13 @@ class TablaTest {
         assertTrue(tabla.gyoztes('X'));
         assertFalse(tabla.gyoztes('O'));
     }
+    @Test
+    void uresTablaMindenMezoPont() {
+        Tabla tabla = new Tabla(10, 10);
+        for (int sor = 0; sor < 10; sor++) {
+            for (int oszlop = 0; oszlop < 10; oszlop++) {
+                assertTrue(tabla.uresmezo(sor, oszlop));
+            }
+        }
+    }
 }
